@@ -16,14 +16,13 @@ scrape_configs:
         labels:
           job: jenkins-pipeline
           __path__: /var/log/custom/sample-logs.json
-
-pipeline_stages:
-  - json:
-      expressions:
-        timestamp: timestamp
-        level: severity_text
-        scope: instrumentation_scope
-        message: message
-  - timestamp:
-      source: timestamp
-      format: RFC3339
+    pipeline_stages:
+      - json:
+          expressions:
+            timestamp: timestamp
+            level: severity_text
+            scope: instrumentation_scope
+            message: message
+      - timestamp:
+          source: timestamp
+          format: RFC3339
