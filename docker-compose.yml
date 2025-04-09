@@ -22,6 +22,7 @@ services:
       - "3100:3100"  # Loki API on 3100
     volumes:
       - ./loki-config.yml:/etc/loki/local-config.yml  # Loki config
+      - loki-storage:/loki
     command: -config.file=/etc/loki/local-config.yml
     environment:
       - LOKI_RETENTION_PERIOD=24h  # Loki retention period
@@ -40,3 +41,4 @@ services:
 
 volumes:
   grafana-storage:  # Volume for Grafana persistence
+  loki-storage:
