@@ -21,8 +21,8 @@ services:
     ports:
       - "3100:3100"  # Loki API on 3100
     volumes:
-      - ./loki-config.yml:/etc/loki/local-config.yaml  # Loki config
-    command: -config.file=/etc/loki/local-config.yaml
+      - ./loki-config.yml:/etc/loki/local-config.yml  # Loki config
+    command: -config.file=/etc/loki/local-config.yml
     environment:
       - LOKI_RETENTION_PERIOD=24h  # Loki retention period
     restart: always
