@@ -7,30 +7,37 @@ pipeline {
                 checkout scm
             }
         }
-
         stage('Write Logs') {
             steps {
                 script {
                     echo "Starting the pipeline..."
+                    sh 'ls -l' // Example command
+
                     sh '''#!/bin/bash
                     set +x
                     WORKSPACE="${WORKSPACE}"
                     LOG_FILE="${WORKSPACE}/logs/sample-logs.json"
                     mkdir -p "$(dirname "$LOG_FILE")"
-                    exec > >(tee -a "$LOG_FILE") 2>&1
+                    exec > >(cat - >> "$LOG_FILE") 2>&1
                     set -x
-                    echo '{"timestamp":"'"$(date -Iseconds)"'", "severity_text":"INFO", "instrumentation_scope":"build", "message":"Pipeline started"}'
+                    echo "This log will be written to sample-logs.json"
                     ls -la
                     java -version
-                    echo '{"timestamp":"'"$(date -Iseconds)"'", "severity_text":"INFO", "instrumentation_scope":"build", "message":"Pipeline finished"}'
                     '''
                 }
             }
         }
-
-        stage('Final Stage') {
+        stage('Another Stage (Optional)') {
             steps {
-                echo "Done!"
+                echo "This is another stage."
+            }
+        }
+        stage('Deploy Setup') {
+            steps {
+                script {
+                    echo "Deploying the setup using Docker Compose..."
+                    sh 'docker-compose up -d'
+                }
             }
         }
     }
