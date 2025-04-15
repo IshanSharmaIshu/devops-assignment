@@ -33,7 +33,6 @@ services:
     volumes:
       - ./promtail/config.yml:/etc/promtail/config.yml  # Your Promtail config
       - ./logs:/var/log/custom  # Folder with your custom logs
-      - ./promtail-config.yml:/etc/promtail/config.yml  # Promtail config
     command: -config.file=/etc/promtail/config.yml -config.expand-env=true
     environment:
       - PROMTAIL_SCRAPE_INTERVAL=10s  # Promtail scrape interval
