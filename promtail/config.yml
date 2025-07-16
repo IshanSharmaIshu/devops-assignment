@@ -9,7 +9,7 @@ clients:
   - url: http://loki:3100/loki/api/v1/push  # Send logs to Loki container
 
 scrape_configs:
-  - job_name: custom-logs
+  - job_name: demo-log-job
     static_configs:
       - targets:
           - localhost  # Static target; not used, just required
